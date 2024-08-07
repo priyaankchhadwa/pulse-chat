@@ -1,3 +1,4 @@
+import InitialModal from "@/components/modals/initial-modal";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
 import { db } from "@/lib/db";
@@ -25,8 +26,6 @@ export default async function SetupPage() {
   }
 
   return (
-    <>
-      Create a server!
-    </>
+    <InitialModal />
   );
 }
