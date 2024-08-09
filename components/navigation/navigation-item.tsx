@@ -31,22 +31,20 @@ export default function NavigationItem(
                 onClick={() => {router.push(`/servers/${id}`)}}
                 className="group relative flex items-center"
             >
-                <div
-                    className={cn(
-                        "absolute left-0 bg-primary rounded-r-full transition-all w-1",
-                        params?.serverId !== id ?? "group-hover:h-5",
-                        params?.serverId === id ? "h-9" : "h-2"
-                    )}
-                />   
-                <div 
-                    className={cn(
-                        "relative group flex mx-3 h-12 w-12 rounded-3xl group-hover:rounded-2xl transition-all overflow-hidden",
-                        params?.serverId === id && "bg-primary/10 text-primary rounded-2xl" 
+                <div className={cn(
+                    "absolute left-0 bg-primary rounded-full transition-all w-1",
+                    params?.serverId !== id && "group-hover:h-5",
+                    params?.serverId === id ? "h-9" : "h-2"
+                )} />
+
+                <div className={cn(
+                    "relative group flex mx-3 h-12 w-12 rounded-3xl group-hover:rounded-2xl transition-all overflow-hidden shadow-muted-foreground shadow-md",
+                    params?.serverId === id && "bg-primary/10 text-primary rounded-2xl"
                 )}>
-                    <Image
+                    <Image 
                         fill
                         src={imageUrl}
-                        alt="Channel"
+                        alt="server"
                     />
                 </div>
             </button>
