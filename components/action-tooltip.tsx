@@ -26,7 +26,7 @@ export function ActionTooltip({
                 <TooltipTrigger asChild>
                     {children}
                 </TooltipTrigger>
-                <TooltipContent side={side} align={align}>
+                <TooltipContent side={side} align={align} className="shadow-md dark:shadow-foreground/20">
                     <p className="font-semibold text-sm">
                         {label}
                     </p>
