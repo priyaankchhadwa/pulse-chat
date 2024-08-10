@@ -2,9 +2,24 @@
 
 import { ServerWithMembersWithProfiles } from "@/types";
 import { MemberRole } from "@prisma/client";
+import { useModal } from "@/hooks/use-modal-store";
 
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { ChevronDown, LogOut, PlusCircle, Settings, Trash, UserPlus, Users } from "lucide-react";
+import { 
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger 
+} from "@/components/ui/dropdown-menu";
+import { 
+    ChevronDown,
+    LogOut,
+    PlusCircle,
+    Settings,
+    Trash,
+    UserPlus, 
+    Users 
+} from "lucide-react";
 
 interface ServerHeaderProps {
     server: ServerWithMembersWithProfiles;
@@ -14,9 +29,10 @@ interface ServerHeaderProps {
 export default function ServerHeader(
     { server, role }: ServerHeaderProps) 
 {
+    const { onOpen } = useModal();
+
     const isAdmin = role == MemberRole.ADMIN;
     const isModerator = isAdmin || role == MemberRole.MODERATOR;
-
 
     return (
         <DropdownMenu>
@@ -35,25 +51,34 @@ export default function ServerHeader(
                 className="w-56 text-xs font-medium text-primary space-y-[2px]"
             >
                 {isModerator && (
-                    <DropdownMenuItem className="text-sm cursor-pointer text-purple-800 dark:text-purple-400 px-3 py-2">
+                    <DropdownMenuItem 
+                        onClick={() => onOpen("invite", { server: server })}
+                        className="text-sm cursor-pointer text-purple-800 dark:text-purple-400 px-3 py-2"
+                    >
                         Invite People
                         <UserPlus className="w-4 h-4 ml-auto"/>
                     </DropdownMenuItem>
                 )}
                 {isAdmin && (
-                    <DropdownMenuItem className="text-sm cursor-pointer px-3 py-2">
+                    <DropdownMenuItem 
+                        className="text-sm cursor-pointer px-3 py-2"
+                    >
                         Server Settings
                         <Settings className="w-4 h-4 ml-auto"/>
                     </DropdownMenuItem>
                 )}
                 {isAdmin && (
-                    <DropdownMenuItem className="text-sm cursor-pointer px-3 py-2">
+                    <DropdownMenuItem 
+                        className="text-sm cursor-pointer px-3 py-2"
+                    >
                         Manage Members
                         <Users className="w-4 h-4 ml-auto"/>
                     </DropdownMenuItem>
                 )}
                 {isModerator && (
-                    <DropdownMenuItem className="text-sm cursor-pointer px-3 py-2">
+                    <DropdownMenuItem 
+                        className="text-sm cursor-pointer px-3 py-2"
+                    >
                         Create Channel
                         <PlusCircle className="w-4 h-4 ml-auto"/>
                     </DropdownMenuItem>
@@ -62,13 +87,17 @@ export default function ServerHeader(
                     <DropdownMenuSeparator />
                 )}
                 {isAdmin && (
-                    <DropdownMenuItem className="text-sm cursor-pointer px-3 py-2 text-rose-500">
+                    <DropdownMenuItem 
+                        className="text-sm cursor-pointer px-3 py-2 text-rose-500"
+                    >
                         Delete Server
                         <Trash className="w-4 h-4 ml-auto"/>
                     </DropdownMenuItem>
                 )}
                 {!isAdmin && (
-                    <DropdownMenuItem className="text-sm cursor-pointer px-3 py-2 text-rose-500">
+                    <DropdownMenuItem 
+                        className="text-sm cursor-pointer px-3 py-2 text-rose-500"
+                    >
                         Leave Server
                         <LogOut className="w-4 h-4 ml-auto"/>
                     </DropdownMenuItem>
