@@ -79,6 +79,7 @@ export default function ServerHeader(
                 )}
                 {isModerator && (
                     <DropdownMenuItem 
+                        onClick={() => onOpen("createChannel", { server: server })}
                         className="text-sm cursor-pointer px-3 py-2"
                     >
                         Create Channel
