@@ -17,7 +17,7 @@ export default function NavigationAction() {
             >
                 <button 
                     onClick={() => {
-                        onOpen("createServer");
+                        onOpen("createServer", {});
                         console.log("create server");
                     }}
                     className="group flex items-center">

@@ -60,7 +60,8 @@ export default function ServerHeader(
                     </DropdownMenuItem>
                 )}
                 {isAdmin && (
-                    <DropdownMenuItem 
+                    <DropdownMenuItem
+                        onClick={() => onOpen("editServer", { server: server })}
                         className="text-sm cursor-pointer px-3 py-2"
                     >
                         Server Settings
