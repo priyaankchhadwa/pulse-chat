@@ -1,5 +1,9 @@
 "use client"
 
+import axios from "axios";
+import { useState } from "react";
+import { useOrigin } from "@/hooks/use-origin";
+
 import {
     Dialog,
     DialogContent,
@@ -13,9 +17,6 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Check, Copy, RefreshCw } from "lucide-react";
-import { useOrigin } from "@/hooks/use-origin";
-import { useState } from "react";
-import axios from "axios";
 
 
 export default function InviteModal() {

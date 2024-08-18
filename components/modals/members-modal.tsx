@@ -24,7 +24,6 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
     DropdownMenuSub,
-    DropdownMenuSubContent,
     DropdownMenuSubTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -32,9 +31,6 @@ import UserAvatar from "@/components/user-avatar";
 
 import { Check, Gavel, Loader2, MoreVertical, Shield, ShieldAlert, ShieldCheck, ShieldQuestion } from "lucide-react";
 
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 
 const roleIconMap = {
     "GUEST": null,

@@ -31,7 +31,7 @@ export default async function NavigationSidebar() {
 
     return (
         <div
-            className="space-y-4 py-3 flex flex-col items-center h-full bg-primary/15 dark:bg-secondary/50"
+            className="space-y-4 py-3 flex flex-col items-center h-full bg-primary/30 dark:bg-secondary/50"
         >
             <NavigationAction />
             <Separator

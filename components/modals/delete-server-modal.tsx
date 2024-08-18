@@ -15,11 +15,6 @@ import {
 import { useModal } from "@/hooks/use-modal-store";
 import { Button } from "@/components/ui/button";
 
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Check, Copy, RefreshCw } from "lucide-react";
-import { useOrigin } from "@/hooks/use-origin";
-
 
 export default function DeleteServerModal() {
     const {isOpen, onOpen, onClose, type, data} = useModal();
@@ -28,7 +23,6 @@ export default function DeleteServerModal() {
     const isModalOpen = isOpen && type === "deleteServer";
     const { server } = data;
 
-    const [copied, setCopied ] = useState(false);
     const [isLoading, setIsLoading ] = useState(false);
 
     const onConfirm = async () => {
