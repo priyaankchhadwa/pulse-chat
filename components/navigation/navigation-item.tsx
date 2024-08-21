@@ -38,7 +38,7 @@ export default function NavigationItem(
                 )} />
 
                 <div className={cn(
-                    "relative group flex mx-3 h-12 w-12 rounded-3xl group-hover:rounded-2xl transition-all overflow-hidden shadow-muted-foreground shadow-md",
+                    "relative group flex mx-3 h-12 w-12 rounded-3xl group-hover:rounded-2xl transition-all overflow-hidden",
                     params?.serverId === id && "bg-primary/10 text-primary rounded-2xl"
                 )}>
                     <Image 

@@ -10,8 +10,8 @@ import {
 interface ActionTooltipProps {
     label: string;
     children: React.ReactNode;
-    side: "top" | "bottom" | "left" | "right";
-    align: "start" | "center" | "end";
+    side?: "top" | "bottom" | "left" | "right";
+    align?: "start" | "center" | "end";
 }
 
 export function ActionTooltip({
@@ -26,7 +26,7 @@ export function ActionTooltip({
                 <TooltipTrigger asChild>
                     {children}
                 </TooltipTrigger>
-                <TooltipContent side={side} align={align} className="shadow-md dark:shadow-foreground/20">
+                <TooltipContent side={side} align={align}>
                     <p className="font-semibold text-sm">
                         {label}
                     </p>
