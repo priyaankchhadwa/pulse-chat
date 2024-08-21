@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import * as z from "zod";
 import axios from "axios";
@@ -45,26 +45,27 @@ const formSchema = z.object({
             { message: "Channel name cannot be 'general'" }
         ),
     type: z.nativeEnum(ChannelType)
-})
+});
 
 export default function CreateChannelModal() {
-    const {isOpen, onClose, type} = useModal();
+    const {isOpen, onClose, type, data} = useModal();
     const router = useRouter();
-    const params = useParams()
+    const params = useParams();
 
     const isModalOpen = isOpen && type === "createChannel";
+    const { channelType } = data;
 
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
             name: "",
-            type: ChannelType.TEXT
+            type: channelType || ChannelType.TEXT
         },
     });
 
     const isLoading = form.formState.isSubmitting;
 
-    async function onSubmit(values:z.infer<typeof formSchema>) {
+    async function onSubmit(values: z.infer<typeof formSchema>) {
         try {
             const url = qs.stringifyUrl({
                 url: "/api/channels",
@@ -102,7 +103,9 @@ export default function CreateChannelModal() {
                     <form onSubmit={form.handleSubmit(onSubmit)}
                           className="space-y-8">
                         <div className="space-y-8">
-                            <FormField control={form.control} name="name"
+                            <FormField 
+                                control={form.control} 
+                                name="name"
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Channel Name</FormLabel>
@@ -127,7 +130,7 @@ export default function CreateChannelModal() {
                                         <Select
                                             disabled={isLoading}
                                             onValueChange={field.onChange}
-                                            defaultValue={field.value}
+                                            defaultValue={channelType || ChannelType.TEXT}
                                         >
                                             <FormControl>
                                                 <SelectTrigger
