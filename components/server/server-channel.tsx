@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { Edit, Hash, Lock, Mic, Trash, Video } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ActionTooltip } from "@/components/action-tooltip";
+import { useModal } from "@/hooks/use-modal-store";
 
 interface ServerChannelProps {
     channel: Channel;
@@ -21,6 +22,7 @@ const iconMap = {
 export default function ServerChannel({
     channel, server, role
 }: ServerChannelProps) {
+    const { onOpen } = useModal();
     const router = useRouter();
     const params = useParams();
 
@@ -37,7 +39,7 @@ export default function ServerChannel({
             <Icon className="w-5 h-5 text-muted-foreground flex-shrink-0" />
             <p
                 className={cn(
-                    "line-clamp-1 font-semibold text-sm text-muted-foreground group-hover:text-accent-foreground transition",
+                    "line-clamp-1 text-left font-semibold text-sm text-muted-foreground group-hover:text-accent-foreground transition",
                     params?.channelId === channel.id && "text-primary"
                 )}
             >
@@ -47,11 +49,13 @@ export default function ServerChannel({
                 <div className="ml-auto flex items-center gap-x-2">
                     <ActionTooltip label="edit">
                         <Edit
+                            onClick={() => onOpen("editChannel", { server, channel })}
                             className="hidden group-hover:block w-4 h-4 text-muted-foreground hover:text-accent-foreground transition"
                         />
                     </ActionTooltip>
                     <ActionTooltip label="delete">
                         <Trash
+                            onClick={() => onOpen("deleteChannel", { server, channel })}
                             className="hidden group-hover:block w-4 h-4 text-muted-foreground hover:text-accent-foreground transition"
                         />
                     </ActionTooltip>

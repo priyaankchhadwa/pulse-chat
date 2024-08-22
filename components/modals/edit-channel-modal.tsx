@@ -5,7 +5,7 @@ import axios from "axios";
 import qs from "query-string";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import {
     Dialog,
@@ -14,7 +14,6 @@ import {
     DialogHeader,
     DialogFooter,
     DialogTitle,
-    DialogTrigger,
 } from "@/components/ui/dialog"
 import {
     Form,
@@ -48,33 +47,41 @@ const formSchema = z.object({
     type: z.nativeEnum(ChannelType)
 });
 
-export default function CreateChannelModal() {
+export default function EditChannelModal() {
     const {isOpen, onClose, type, data} = useModal();
     const router = useRouter();
-    const params = useParams();
 
-    const isModalOpen = isOpen && type === "createChannel";
-    const { channelType } = data;
+    const isModalOpen = isOpen && type === "editChannel";
+    const { channel, server } = data;
 
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
             name: "",
-            type: channelType || ChannelType.TEXT
+            type: channel?.type || ChannelType.TEXT
         },
     });
+
+    useEffect(() => {
+        if (channel) {
+            form.reset({
+                name: channel.name,
+                type: channel.type
+            });
+        }
+    }, [form, channel]);
 
     const isLoading = form.formState.isSubmitting;
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
         try {
             const url = qs.stringifyUrl({
-                url: "/api/channels",
+                url: `/api/channels/${channel?.id}`,
                 query: {
-                    serverId: params?.serverId
+                    serverId: server?.id
                 }
             });
-            await axios.post(url, values);
+            await axios.patch(url, values);
 
             form.reset();
             router.refresh();
@@ -83,12 +90,6 @@ export default function CreateChannelModal() {
             console.log(error);
         }
     }
-
-    useEffect(() => {
-        if (channelType) {
-            form.setValue("type", channelType);
-        }
-    }, [form, channelType]);
 
     const handleClose = () => {
         form.reset();
@@ -100,7 +101,7 @@ export default function CreateChannelModal() {
             <DialogContent>
                 <DialogHeader className="flex items-center text-center justify-center">
                     <DialogTitle>
-                        Create Channel
+                        Edit Channel
                     </DialogTitle>
                     <DialogDescription>
                         Customize your server with a name and an image
@@ -164,7 +165,7 @@ export default function CreateChannelModal() {
                             />
                         </div>
                         <DialogFooter>
-                            <Button disabled={isLoading}>Create</Button>
+                            <Button disabled={isLoading}>Save</Button>
                         </DialogFooter>
                     </form>
                 </Form>
