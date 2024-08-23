@@ -30,7 +30,7 @@ export default async function ChannelIdPage({
 
     const member = await db.member.findFirst({
         where: {
-            serverid: params.serverId,
+            serverId: params.serverId,
             profileId: profile.id
         }
     });
@@ -46,7 +46,7 @@ export default async function ChannelIdPage({
         >
             <ChatHeader
                 name={channel.name}
-                serverId={channel.serverid}
+                serverId={channel.serverId}
                 type="channel"
             />
         </div>
