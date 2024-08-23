@@ -73,9 +73,10 @@ export default function ServerSearch({ data }: ServerSearchProps) {
                     Search
                 </p>
                 <kbd
-                    className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-background px-1.5 font-mono text-[10px] text-muted-foreground font-medium ml-auto"
+                    className="pointer-events-none inline-flex h-5 select-none items-center gap-1 font-mono text-[10px] text-muted-foreground font-medium ml-auto"
                 >
-                    <span className="text-xs">{modifierKey}</span> K
+                    <span className="text-xs bg-background rounded px-1.5 py-1">{modifierKey}</span>
+                    <span className="text-xs bg-background rounded px-1.5 py-1">K</span> 
                 </kbd>
             </button>
             <CommandDialog open={open} onOpenChange={setOpen}>
