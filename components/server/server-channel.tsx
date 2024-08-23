@@ -39,7 +39,7 @@ export default function ServerChannel({
             <Icon className="w-5 h-5 text-muted-foreground flex-shrink-0" />
             <p
                 className={cn(
-                    "line-clamp-1 text-left font-semibold text-sm text-muted-foreground group-hover:text-accent-foreground transition",
+                    "line-clamp-1 text-left break-all font-semibold text-sm text-muted-foreground group-hover:text-accent-foreground transition",
                     params?.channelId === channel.id && "text-primary"
                 )}
             >
