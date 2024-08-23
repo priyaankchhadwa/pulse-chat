@@ -28,9 +28,13 @@ export default function ServerChannel({
 
     const Icon = iconMap[channel.type];
 
+    const onClick = () => {
+        router.push(`/servers/${params?.serverId}/channels/${channel.id}`);
+    }
+
     return (
         <button
-            onClick={() => {}}
+            onClick={onClick}
             className={cn(
                 "group p-2 rounded-md flex items-center gap-x-2 w-full mb-1 hover:bg-primary/20 transition",
                 params?.channelId === channel.id && "bg-primary/20"
@@ -42,6 +46,7 @@ export default function ServerChannel({
                     "line-clamp-1 text-left break-all font-semibold text-sm text-muted-foreground group-hover:text-accent-foreground transition",
                     params?.channelId === channel.id && "text-primary"
                 )}
+                title={channel.name}
             >
                 {channel.name}
             </p>
@@ -49,13 +54,19 @@ export default function ServerChannel({
                 <div className="ml-auto flex items-center gap-x-2">
                     <ActionTooltip label="edit">
                         <Edit
-                            onClick={() => onOpen("editChannel", { server, channel })}
+                            onClick={(e: React.MouseEvent) => {
+                                e.stopPropagation();
+                                onOpen("editChannel", { server, channel });
+                            }}
                             className="hidden group-hover:block w-4 h-4 text-muted-foreground hover:text-accent-foreground transition"
                         />
                     </ActionTooltip>
                     <ActionTooltip label="delete">
                         <Trash
-                            onClick={() => onOpen("deleteChannel", { server, channel })}
+                            onClick={(e: React.MouseEvent) => {
+                                e.stopPropagation();
+                                onOpen("deleteChannel", { server, channel });
+                            }}
                             className="hidden group-hover:block w-4 h-4 text-muted-foreground hover:text-accent-foreground transition"
                         />
                     </ActionTooltip>

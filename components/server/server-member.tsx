@@ -27,11 +27,16 @@ export default function ServerMember({
 
     const icon = roleIconMap[member.role];
 
+    const onClick = () => {
+        router.push(`/servers/${params?.serverId}/conversations/${member.id}`);
+    }
+
     return (
         <button
+            onClick={onClick}
             className={cn(
                 "group p-2 rounded-md flex items-center gap-x-2 w-full mb-1 hover:bg-primary/20 transition",
-                params?.memberId === member.id && "bg-primary/40"
+                params?.memberId === member.id && "bg-primary/20"
             )}
         >
             <UserAvatar
@@ -41,7 +46,7 @@ export default function ServerMember({
             <p
                 className={cn(
                     "font-semibold text-sm text-muted-foreground group-hover:text-accent-foreground transition",
-                    params?.channelId === member.id && "text-primary"
+                    params?.memberId === member.id && "text-primary"
                 )}
             >
                 {member.profile.name}
