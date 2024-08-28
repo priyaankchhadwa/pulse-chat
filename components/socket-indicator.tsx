@@ -2,7 +2,7 @@
 
 import { useSocket } from "@/components/providers/socket-provider";
 import { Badge } from "@/components/ui/badge";
-import { Circle, Radio, Wifi } from "lucide-react";
+import { Circle, WifiOff } from "lucide-react";
 
 export default function SocketIndicator() {
     const { isConnected } = useSocket();
@@ -13,7 +13,7 @@ export default function SocketIndicator() {
                 variant="outline"
                 className="text-center border-none bg-amber-600 text-white"
             >
-                <Wifi className="h-4 w-4 mr-1 motion-safe:animate-pulse"/>
+                <WifiOff className="h-4 w-4 mr-1 motion-safe:animate-pulse"/>
                 Fallback: Polling every 1s
             </Badge>
         );
