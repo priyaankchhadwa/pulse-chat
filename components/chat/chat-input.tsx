@@ -5,6 +5,10 @@ import axios from "axios";
 import qs from "query-string";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { Plus } from "lucide-react";
+import { useRouter } from "next/navigation";
+
+import { useModal } from "@/hooks/use-modal-store";
 
 import { 
     Form,
@@ -13,8 +17,7 @@ import {
     FormItem,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Plus, Smile } from "lucide-react";
-import { useModal } from "@/hooks/use-modal-store";
+import EmojiPicker from "@/components/emoji-picker";
 
 interface ChatInputProps {
     apiUrl: string;
@@ -34,6 +37,8 @@ export default function ChatInput({
     type
 }: ChatInputProps) {
     const { onOpen } = useModal();
+    const router = useRouter();
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -51,6 +56,8 @@ export default function ChatInput({
             });
             await axios.post(url, values);
 
+            form.reset()
+            router.refresh();
         } catch (error) {
             console.log(values);
         }
@@ -70,7 +77,7 @@ export default function ChatInput({
                                     <button
                                         type="button"
                                         onClick={() => onOpen("messageFile", { apiUrl, query })}
-                                        className="absolute left-8 top-7 w-6 h-6 bg-muted-foreground/50 hover:bg-muted-foreground/80 rounded-full transition p-1 flex items-center justify-center"
+                                        className="absolute left-8 top-7 w-6 h-6 bg-muted-foreground/50 hover:bg-muted-foreground/90 rounded-full transition p-1 flex items-center justify-center"
 
                                     >
                                         <Plus className="text-primary"/>
@@ -82,7 +89,9 @@ export default function ChatInput({
                                         {...field}
                                     />
                                     <div className="absolute right-8 top-7">
-                                        <Smile />
+                                        <EmojiPicker
+                                            onChange={(emoji: string) => field.onChange(field.value + emoji) }
+                                        />
                                     </div>
                                 </div>
                             </FormControl>
