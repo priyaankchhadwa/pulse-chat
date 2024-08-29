@@ -20,6 +20,7 @@ export default function SocketIndicator() {
     } else {
         return (
             <Badge
+                variant="outline"
                 className="text-center border-none bg-emerald-600 text-white"
             >
                 <Circle className="h-2 w-2 mr-1.5 bg-red-700 text-red-700 rounded-full motion-safe:animate-ping" />
