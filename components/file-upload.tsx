@@ -1,6 +1,6 @@
 "use client"
 
-import { X } from "lucide-react";
+import { FileText, X } from "lucide-react";
 import Image from "next/image";
 
 import { UploadDropzone } from "@/lib/uploadthing";
@@ -18,6 +18,30 @@ export default function FileUpload({
 }: FileUploadProps) {
     const fileType = value?.split(".").pop();
 
+    if (value && fileType == "pdf") {
+        console.log(value);
+        return (
+            <div className="relative flex items-center p-2 mt-2 rounded-md bg-foreground/15">
+                <FileText className="h-10 w-10 fill-accent stroke-accent-foreground"/>
+                <a
+                    href={value}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="ml-2 text-sm hover:underline"
+                >
+                    {value}
+                </a>
+                <button
+                    onClick={() => onChange("")}
+                    className="relative -top-6 -right-5 rounded-full shadow-lg bg-rose-500 text-secondary p-1.5"
+                    type="button"
+                >
+                    <X className="h-4 w-4" />
+                </button>
+            </div>
+        )
+    }
+
     if (value && fileType != "pdf") {
         return (
             <div className="relative h-40 w-40">
@@ -32,10 +56,11 @@ export default function FileUpload({
                     className="relative top-0 left-10 rounded-full shadow-lg bg-rose-500 text-secondary p-1.5"
                     type="button"
                 >
-                    <X className="h-5 w-5" />
+                    <X className="h-4 w-4" />
                 </button>
             </div>
-        )}
+        )
+    }
 
     return (
         <UploadDropzone
