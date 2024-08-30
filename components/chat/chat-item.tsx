@@ -10,6 +10,7 @@ import Image from "next/image";
 import { Edit, FileText, ShieldAlert, ShieldCheck, Trash } from "lucide-react";
 
 import { Member, Profile } from "@prisma/client";
+import { useModal } from "@/hooks/use-modal-store";
 import { cn } from "@/lib/utils";
 
 import UserAvatar from "@/components/user-avatar";
@@ -61,7 +62,7 @@ export default function ChatItem({
     socketQuery
 }: ChatItemProps) {
     const [isEditing, setIsEditing] = useState(false);
-    const [isDeleting, setIsDeleting] = useState(false);
+    const { onOpen } = useModal();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -226,7 +227,11 @@ export default function ChatItem({
                         </ActionTooltip>
                     )}
                     <ActionTooltip label="Delete">
-                        <Trash 
+                        <Trash
+                            onClick={() => onOpen("deleteMessage", {
+                                apiUrl: `${socketUrl}/${id}`,
+                                query: socketQuery
+                            })}
                             className="cursor-pointer ml-auto w-4 h-4 text-muted-foreground hover:text-accent-foreground transition"
                         />
                     </ActionTooltip>
