@@ -15,7 +15,7 @@ export default async function handler(
 
     try {
         const profile = await currentProfilePages(req);
-        const { messagesId, serverId, channelId } = req.query;
+        const { messageId, serverId, channelId } = req.query;
         const { content } = req.body;
         
         if (!profile) {
@@ -67,7 +67,7 @@ export default async function handler(
     
         let message = await db.message.findFirst({
             where: {
-                id: messagesId as string,
+                id: messageId as string,
                 channelId: channel.id
             },
             include: {
