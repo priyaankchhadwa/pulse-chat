@@ -2,7 +2,7 @@
 
 import { format } from "date-fns";
 import { Loader2, ServerCrash } from "lucide-react";
-import { Fragment } from "react";
+import { ElementRef, Fragment, useRef } from "react";
 import { Member, Message, Profile } from "@prisma/client";
 
 import { useChatQuery } from "@/hooks/use-chat-query";
@@ -10,6 +10,7 @@ import useChatSocket from "@/hooks/use-chat-socket";
 
 import ChatWelcome from "@/components/chat/chat-welcome";
 import ChatItem from "@/components/chat/chat-item";
+import { useChatScroll } from "@/hooks/use-chat-scroll";
 
 const DATE_FORMAT = "d MMM yyyy, HH:mm";
 
@@ -46,6 +47,9 @@ export default function ChatMessages({
     const addKey = `chat:${chatId}:messages`
     const updateKey = `chat:${chatId}:message:update`
 
+    const chatRef = useRef<HTMLDivElement>(null);
+    const bottomRef = useRef<HTMLDivElement>(null);
+
     const {
         data,
         fetchNextPage,
@@ -59,7 +63,15 @@ export default function ChatMessages({
         paramValue
     });
 
-    useChatSocket({ queryKey, addKey, updateKey })
+    useChatSocket({ queryKey, addKey, updateKey });
+
+    useChatScroll({
+        chatRef,
+        bottomRef,
+        loadMore: fetchNextPage,
+        shouldLoadMore: !isFetchingNextPage && hasNextPage,
+        count: data?.pages?.[0]?.items.length ?? 0
+    });
 
     if (status === "pending") {
         return (
@@ -84,12 +96,31 @@ export default function ChatMessages({
     }
 
     return (
-        <div className="flex flex-1 flex-col py-4 overflow-y-auto">
-            <div className="flex-1" />
-            <ChatWelcome
-                name={name}
-                type={type}
-            />
+        <div ref={chatRef} className="flex flex-1 flex-col py-4 overflow-y-auto">
+            {!hasNextPage && (
+                <>
+                    <div className="flex-1" />
+                    <ChatWelcome
+                        name={name}
+                        type={type}
+                    />
+                </>
+            )}
+            {hasNextPage && (
+                <div className="flex justify-center">
+                    {isFetchingNextPage ? (
+                        <Loader2 className="w-9 h-9 animate-spin my-4 text-muted-foreground" />
+                    ) : (
+                        <button
+                            onClick={() => fetchNextPage()}
+                            className="text-xs my-4 text-muted-foreground hover:text-foreground transition"
+                        >
+                            Load previous messages
+                        </button>
+                    )
+                    }
+                </div>
+            )}
             <div
                 className="flex flex-col-reverse mt-auto"
             >
@@ -115,6 +146,7 @@ export default function ChatMessages({
                     </Fragment>
                 ))}
             </div>
+            <div ref={bottomRef} />
         </div>
     )
 }
