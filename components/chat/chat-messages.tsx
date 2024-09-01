@@ -126,7 +126,7 @@ export default function ChatMessages({
             >
                 {data?.pages?.map((group, index) => (
                     <Fragment key={index}>
-                        {group.items.map((message: MessageWithMemberWithProfile) => (
+                        {group?.items?.map((message: MessageWithMemberWithProfile) => (
                             <div key={message.id}>
                                 <ChatItem
                                     key={message.id}
