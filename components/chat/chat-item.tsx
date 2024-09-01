@@ -149,7 +149,7 @@ export default function ChatItem({
                     </div>
                     {isImage && (
                         <a
-                            href="{fileUrl}"
+                            href={fileUrl}
                             target="_blank"
                             rel="noreferrer noopener"
                             className="relative aspect-square rounded-md mt-2 overflow-hidden border flex items-center h-48 w-48 bg-transparent"

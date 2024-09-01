@@ -17,7 +17,7 @@ export default function ioHandler(req: NextApiRequest, res: NextApiResponseServe
         const httpServer: NetServer = res.socket.server as any;
         const io = new ServerIO(httpServer, {
             path: path,
-            addTrailingSlash: false
+            addTrailingSlash: true
         });
         res.socket.server.io = io;
     }
