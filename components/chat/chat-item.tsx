@@ -179,7 +179,7 @@ export default function ChatItem({
                     {!fileUrl && !isEditing && (
                         <p
                             className={cn(
-                                "text-sm text-primary",
+                                "text-sm",
                                 deleted && "italic text-muted-foreground text-xs mt-1"
                             )}
                         >

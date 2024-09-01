@@ -50,7 +50,7 @@ export default function DeleteMessageModal() {
                     <DialogTitle className="text-2xl text-center font-bold">
                         Delete Message
                     </DialogTitle>
-                    <DialogDescription className="text-center text-primary">
+                    <DialogDescription className="text-center text-accent-foreground">
                         Are you sure you want to do this? <br />
                         The message will be permanently deleted.
                     </DialogDescription>
