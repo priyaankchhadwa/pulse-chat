@@ -57,5 +57,5 @@ export function useChatScroll({
                 behavior: "smooth"
             });
         }
-    });
+    }), [bottomRef, hasInitialized, chatRef, count];
 }
