@@ -32,6 +32,12 @@ export default function RootLayout({
                     defaultTheme="dark"
                     enableSystem={false}
                     storageKey="discord-theme"
+                    themes={["light", "dark", 
+                        "zinc-light", "zinc-dark", 
+                        "red-light", "red-dark", 
+                        "orange-light", "orange-dark", 
+                        "green-light", "green-dark", 
+                        "blue-light", "blue-dark"]}
                   >
                     <SocketProvider>
                       <ModalProvider />
